@@ -4,7 +4,7 @@ using Microsoft.IdentityModel.Tokens;
 
 namespace Samauma.Configuration
 {
-	public static class JWTConfiguration
+	public static class JwtConfiguration
 	{
 		public static void Configure(WebApplicationBuilder builder)
         {
