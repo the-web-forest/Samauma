@@ -14,7 +14,7 @@
 [![Code Smells](https://sonarcloud.io/api/project_badges/measure?project=the-web-forest_Samauma&metric=code_smells)](https://sonarcloud.io/summary/new_code?id=the-web-forest_Samauma)
 [![Coverage](https://sonarcloud.io/api/project_badges/measure?project=the-web-forest_Samauma&metric=coverage)](https://sonarcloud.io/summary/new_code?id=the-web-forest_Samauma)
 
-<p align="center">Samauma (Ceiba Pentandra) - Is an internal microservice for our backoffice. There are no public endpoints.</p>
+<p align="center">Samauma (Ceiba Pentandra) - Is an internal microservice for our backoffice. There are no public endpoints. </p>
   
 ## Philosophy 🌳
 Web Forest is a NGO, our goal is straightforward: We want to improve the world using technology and ecology.
