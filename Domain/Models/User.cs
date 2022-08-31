@@ -16,13 +16,16 @@ namespace Samauma.Domain.Models
 		public string Password { get; set; }
 
 		[BsonElement("city")]
-		public string? City { get; set; }
+		public string City { get; set; }
 
 		[BsonElement("state")]
-		public string? State { get; set; }
+		public string State { get; set; }
 
 		[BsonElement("emailVerified")]
 		public bool EmailVerified { get; set; }
-	}
+
+        [BsonElement("origin")]
+        public string Origin { get; set; }
+    }
 }
 
