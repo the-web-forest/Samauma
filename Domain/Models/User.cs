@@ -26,6 +26,9 @@ namespace Samauma.Domain.Models
 
         [BsonElement("origin")]
         public string Origin { get; set; }
+
+        [BsonElement("photo")]
+        public string Photo { get; set; }
     }
 }
 
