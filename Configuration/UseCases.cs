@@ -6,6 +6,7 @@ using Samauma.UseCases.CreateTree;
 using Samauma.UseCases.GetTreeById;
 using Samauma.UseCases.UserDetail;
 using Samauma.UseCases.DeleteTree;
+using Samauma.UseCases.PartnersUseCases.ListPartners;
 
 namespace Samauma.Configuration
 {
@@ -27,6 +28,9 @@ namespace Samauma.Configuration
             builder.Services.AddScoped<IUseCase<DeleteTreeUseCaseInput, DeleteTreeUseCaseOutput>, DeleteTreeUseCase>();
             #endregion
 
+            #region Partner
+            builder.Services.AddScoped<IUseCase<ListPartnersUseCaseInput, ListPartnersUseCaseOutput>, ListPartnersUseCase>();
+            #endregion
         }
     }
 }

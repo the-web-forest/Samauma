@@ -1,6 +1,9 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Samauma.Controllers.Partner.DTOs;
 using Samauma.Domain.Errors;
+using Samauma.UseCases;
+using Samauma.UseCases.PartnersUseCases.ListPartners;
 
 namespace Samauma.Controllers.Partner
 {
@@ -10,11 +13,14 @@ namespace Samauma.Controllers.Partner
     public class PartnersController : ControllerBase
     {
         private readonly ILogger<PartnersController> _logger;
+        private readonly IUseCase<ListPartnersUseCaseInput, ListPartnersUseCaseOutput> _listPartnersUseCase;
 
         public PartnersController(
-            ILogger<PartnersController> logger
+            ILogger<PartnersController> logger,
+            IUseCase<ListPartnersUseCaseInput, ListPartnersUseCaseOutput> listPartnersUseCase
         )
         {
+            _listPartnersUseCase = listPartnersUseCase;
             _logger = logger;
         }
 
@@ -66,16 +72,22 @@ namespace Samauma.Controllers.Partner
             }
         }*/
 
-        /*[HttpGet("List")]
-        public async Task<ObjectResult> GetTree([FromQuery] int Page)
+        [HttpGet("List")]
+        public async Task<ObjectResult> GetPartners([FromQuery] PartnersSearchInput input)
         {
-            _logger.LogInformation("Get partner list has called, Page => {Page}", Page);
+            _logger.LogInformation("Get partner list has called");
 
             try
             {
                 var Data = await _listPartnersUseCase.Run(new ListPartnersUseCaseInput
                 {
-                    
+                    Name = input.Name,
+                    Code = input.Code,
+                    Email = input.Email,
+                    Url = input.Url,
+                    Skip = input.Skip,
+                    Take = input.Take,
+                    RequiredTotal = input.RequiredTotal
                 });
 
                 return new ObjectResult(Data);
@@ -88,7 +100,7 @@ namespace Samauma.Controllers.Partner
             {
                 return StatusCode(StatusCodes.Status500InternalServerError, e.Message);
             }
-        }*/
+        }
 
         /*[HttpGet("{Id}")]
         public async Task<ObjectResult> GetPartnerById(string Id)
