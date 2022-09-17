@@ -16,7 +16,7 @@
       "applicationUrl": "https://localhost:7204;http://localhost:5204",
       "environmentVariables": {
         "ASPNETCORE_ENVIRONMENT": "Development",
-        "VAULT_URL": "aa"
+        "VAULT_URL": "https://webforestkeyvaultdev.vault.azure.net/"
       }
     },
     "IIS Express": {
