@@ -32,7 +32,7 @@ namespace Samauma.External.Repositories
                     .Match(partner => partner.Code == filter.Code);
 
             query = query
-                .SortBy(partner => partner.Name);
+                .SortBy(partner => partner.CreatedAt);
 
             long? total = null;
             if (filter.RequiredTotal == true)

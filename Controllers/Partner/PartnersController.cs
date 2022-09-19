@@ -9,7 +9,7 @@ namespace Samauma.Controllers.Partner
 {
     [ApiController]
     [Route("Partners")]
-    [Authorize]
+    //[Authorize]
     public class PartnersController : ControllerBase
     {
         private readonly ILogger<PartnersController> _logger;
