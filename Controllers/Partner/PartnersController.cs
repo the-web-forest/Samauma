@@ -84,16 +84,6 @@ namespace Samauma.Controllers.Partner
             try
             {
                 var Data = await _listPartnersUseCase.Run(_mapper.Map<ListPartnersUseCaseInput>(input));
-                /*var Data = await _listPartnersUseCase.Run(new ListPartnersUseCaseInput
-                {
-                    Name = input.Name,
-                    Code = input.Code,
-                    Email = input.Email,
-                    Url = input.Url,
-                    Skip = input.Skip,
-                    Take = input.Take,
-                    RequiredTotal = input.RequiredTotal
-                });*/
 
                 return new ObjectResult(Data);
             }
