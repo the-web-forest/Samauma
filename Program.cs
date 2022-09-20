@@ -1,8 +1,5 @@
-﻿using Azure.Core;
-using Azure.Identity;
-using Azure.Security.KeyVault.Secrets;
-using Microsoft.Extensions.Logging;
-using Samauma.Configuration;
+﻿using Samauma.Configuration;
+using Samauma.Configuration.AutoMapper;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -12,6 +9,7 @@ Services.Configure(builder);
 Repositories.Configure(builder);
 UseCases.Configure(builder);
 JwtConfiguration.Configure(builder);
+AutoMapperConfig.Configure(builder);
 
 builder.Services.AddCors(p => p.AddPolicy("corsapp", builder =>
 {

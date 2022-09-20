@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Authorization;
+﻿using AutoMapper;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Samauma.Controllers.Partner.DTOs;
 using Samauma.Domain.Errors;
@@ -12,14 +13,17 @@ namespace Samauma.Controllers.Partner
     //[Authorize]
     public class PartnersController : ControllerBase
     {
+        private readonly IMapper _mapper;
         private readonly ILogger<PartnersController> _logger;
         private readonly IUseCase<ListPartnersUseCaseInput, ListPartnersUseCaseOutput> _listPartnersUseCase;
 
         public PartnersController(
+            IMapper mapper,
             ILogger<PartnersController> logger,
             IUseCase<ListPartnersUseCaseInput, ListPartnersUseCaseOutput> listPartnersUseCase
         )
         {
+            _mapper = mapper;
             _listPartnersUseCase = listPartnersUseCase;
             _logger = logger;
         }
@@ -79,7 +83,8 @@ namespace Samauma.Controllers.Partner
 
             try
             {
-                var Data = await _listPartnersUseCase.Run(new ListPartnersUseCaseInput
+                var Data = await _listPartnersUseCase.Run(_mapper.Map<ListPartnersUseCaseInput>(input));
+                /*var Data = await _listPartnersUseCase.Run(new ListPartnersUseCaseInput
                 {
                     Name = input.Name,
                     Code = input.Code,
@@ -88,7 +93,7 @@ namespace Samauma.Controllers.Partner
                     Skip = input.Skip,
                     Take = input.Take,
                     RequiredTotal = input.RequiredTotal
-                });
+                });*/
 
                 return new ObjectResult(Data);
             }
@@ -125,28 +130,28 @@ namespace Samauma.Controllers.Partner
             }
         }*/
 
-        /*[HttpDelete("{Id}")]
-        public async Task<ObjectResult> DeletePartner(string Id)
-        {
-            _logger.LogInformation("Delete partner has called => {Id}", Id);
-
-            try
-            {
-                var Data = await _deletePartnerUseCase.Run(new DeletePartnerUseCaseInput
+                /*[HttpDelete("{Id}")]
+                public async Task<ObjectResult> DeletePartner(string Id)
                 {
-                    Id = Id
-                });
+                    _logger.LogInformation("Delete partner has called => {Id}", Id);
 
-                return new ObjectResult(Data);
+                    try
+                    {
+                        var Data = await _deletePartnerUseCase.Run(new DeletePartnerUseCaseInput
+                        {
+                            Id = Id
+                        });
+
+                        return new ObjectResult(Data);
+                    }
+                    catch (BaseException e)
+                    {
+                        return new BadRequestObjectResult(e.Data);
+                    }
+                    catch (Exception e)
+                    {
+                        return StatusCode(StatusCodes.Status500InternalServerError, e.Message);
+                    }
+                }*/
             }
-            catch (BaseException e)
-            {
-                return new BadRequestObjectResult(e.Data);
-            }
-            catch (Exception e)
-            {
-                return StatusCode(StatusCodes.Status500InternalServerError, e.Message);
-            }
-        }*/
-    }
 }
