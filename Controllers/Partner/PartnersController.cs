@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Mvc;
 using Samauma.Controllers.Partner.DTOs;
 using Samauma.Domain.Errors;
 using Samauma.UseCases;
+using Samauma.UseCases.PartnersUseCases.CreatePartners;
 using Samauma.UseCases.PartnersUseCases.ListPartners;
 
 namespace Samauma.Controllers.Partner
@@ -16,31 +17,31 @@ namespace Samauma.Controllers.Partner
         private readonly IMapper _mapper;
         private readonly ILogger<PartnersController> _logger;
         private readonly IUseCase<ListPartnersUseCaseInput, ListPartnersUseCaseOutput> _listPartnersUseCase;
+        private readonly IUseCase<CreatePartnerUseCaseInput, CreatePartnerUseCaseOutput> _createPartnerUseCase;
 
         public PartnersController(
             IMapper mapper,
             ILogger<PartnersController> logger,
-            IUseCase<ListPartnersUseCaseInput, ListPartnersUseCaseOutput> listPartnersUseCase
+            IUseCase<ListPartnersUseCaseInput, ListPartnersUseCaseOutput> listPartnersUseCase,
+            IUseCase<CreatePartnerUseCaseInput, CreatePartnerUseCaseOutput> createPartnerUseCase
         )
         {
             _mapper = mapper;
             _listPartnersUseCase = listPartnersUseCase;
+            _createPartnerUseCase = createPartnerUseCase;
             _logger = logger;
         }
 
-        /*[HttpPost]
-        public async Task<ObjectResult> CreatePartner([FromBody] CreatePartnerInput Input/)
+        [HttpPost]
+        public async Task<ObjectResult> CreatePartner([FromBody] CreatePartnerInput input)
         {
-            _logger.LogInformation("Create partner has called => {Name}", Input.Name);
+            _logger.LogInformation("Create partner has called => {Name}", input.Name);
 
             try
             {
-                var Data = await _createPartnerUseCase.Run(new CreatePartnerUseCaseInput
-                {
-                    
-                });
+                var Data = await _createPartnerUseCase.Run(_mapper.Map<CreatePartnerUseCaseInput>(input));
 
-                return new ObjectResult( new { });
+                return new ObjectResult(Data);
             }
             catch (BaseException e)
             {
@@ -50,12 +51,12 @@ namespace Samauma.Controllers.Partner
             {
                 return StatusCode(StatusCodes.Status500InternalServerError, e.Message);
             }
-        }*/
+        }
 
         /*[HttpPut]
-        public async Task<ObjectResult> UpdatePartner([FromBody] UpdatePartnerInput Input)
+        public async Task<ObjectResult> UpdatePartner([FromBody] UpdatePartnerInput input)
         {
-            _logger.LogInformation("Update partner has called => {Id}", Input.Id);
+            _logger.LogInformation("Update partner has called => {Id}", input.Id);
             
             try
             {

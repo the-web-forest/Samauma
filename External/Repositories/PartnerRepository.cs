@@ -1,6 +1,6 @@
 ﻿using MongoDB.Driver;
 using Samauma.Domain.Models;
-using Samauma.UseCases.Interfaces.Repositories;
+using Samauma.UseCases.Interfaces;
 using Samauma.UseCases.PartnersUseCases.ListPartners;
 
 namespace Samauma.External.Repositories
@@ -54,5 +54,15 @@ namespace Samauma.External.Repositories
                     TotalCount = total
                 });
         }
+
+        public async Task<bool> VerifyPartnerEmailExistence(string email)
+            => await _collection.CountDocumentsAsync(x => x.Email.Equals(email)) > 0;
+
+        public async Task<int> GetNextCode()
+            => await _collection
+                .Aggregate()
+                .SortByDescending(partner => partner.Code)
+                .FirstAsync()
+                .ContinueWith(partner => partner.Result.Code + 1);
     }
 }

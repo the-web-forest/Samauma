@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using Samauma.Controllers.Partner.DTOs;
+using Samauma.UseCases.PartnersUseCases.CreatePartners;
 using Samauma.UseCases.PartnersUseCases.ListPartners;
 
 namespace Samauma.Configuration.AutoMapper
@@ -14,6 +15,7 @@ namespace Samauma.Configuration.AutoMapper
         public DTOToModelMappingProfile()
         {
             CreateMap<PartnersSearchInput, ListPartnersUseCaseInput>();
+            CreateMap<CreatePartnerInput, CreatePartnerUseCaseInput>();
         }
     }
 }

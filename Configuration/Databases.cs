@@ -16,7 +16,10 @@ namespace Samauma.Configuration
 		{
 			var partnerCollection = Database.GetCollection<Partner>(typeof(Partner).Name);
 			var indexOptions = new CreateIndexOptions();
-			var indexKeys = Builders<Partner>.IndexKeys.Ascending(x => x.Name);
+			var indexKeys = Builders<Partner>.IndexKeys
+				.Ascending(x => x.CreatedAt)
+				.Ascending(x => x.Name)
+				.Descending(x => x.Code);
 			var indexModel = new CreateIndexModel<Partner>(indexKeys, indexOptions);
 			partnerCollection.Indexes.CreateOne(indexModel);
 		}

@@ -1,6 +1,5 @@
 ﻿using AutoMapper;
-using Samauma.UseCases.Interfaces.Repositories;
-using Samauma.UseCases.PartnersUseCases.ListPartners.DTOs;
+using Samauma.UseCases.Interfaces;
 
 namespace Samauma.UseCases.PartnersUseCases.ListPartners
 {

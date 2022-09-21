@@ -16,5 +16,7 @@ namespace Samauma.Domain.Models
         public string Tree { get; set; }
         [BsonElement("url")]
         public string Url { get; set; }
+        [BsonElement("deleted")]
+        public bool Deleted { get; set; }
     }
 }

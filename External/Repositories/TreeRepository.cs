@@ -22,6 +22,9 @@ namespace Samauma.External.Repositories
             return TotalTask;
         }
 
+        public async Task<bool> VerifyTreeExistenceById(string TreeId)
+            => await _collection.CountDocumentsAsync(x => x.Id.Equals(TreeId)) > 0;
+
         public async Task<Tree> GetTreeById(string TreeId)
         {
             return await _collection.Find(x => x.Id == TreeId).FirstOrDefaultAsync();
