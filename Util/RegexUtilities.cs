@@ -1,4 +1,5 @@
-﻿using System.Globalization;
+﻿using MongoDB.Bson;
+using System.Globalization;
 using System.Text.RegularExpressions;
 
 namespace Samauma.Util
@@ -51,5 +52,8 @@ namespace Samauma.Util
 
         public static bool IsValidPassword(string password)
             => int.TryParse(password, out _) && password.Length < 7;
+
+        public static bool IsValidMongoObjectId(string objectId)
+            => ObjectId.TryParse(objectId, out _);
     }
 }

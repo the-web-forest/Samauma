@@ -36,6 +36,9 @@ namespace Samauma.UseCases.PartnersUseCases.CreatePartners
             if (await VerifyEmailExists(input.Email))
                 throw new EmailAlreadyRegisteredException();
 
+            if (!RegexUtilities.IsValidMongoObjectId(input.Tree))
+                throw new InvalidTreeObjectIdException();
+
             if (!await VerifyTreeExists(input.Tree))
                 throw new InvalidTreeIdException();
 

@@ -39,9 +39,9 @@ namespace Samauma.Controllers.Partner
 
             try
             {
-                var Data = await _createPartnerUseCase.Run(_mapper.Map<CreatePartnerUseCaseInput>(input));
+                var data = await _createPartnerUseCase.Run(_mapper.Map<CreatePartnerUseCaseInput>(input));
 
-                return new ObjectResult(Data);
+                return new ObjectResult(data);
             }
             catch (BaseException e)
             {
@@ -60,16 +60,16 @@ namespace Samauma.Controllers.Partner
             
             try
             {
-                var Data = await _updatePartnerUseCase.Run(new UpdatePartnerUseCaseInput
+                var data = await _updatePartnerUseCase.Run(new UpdatePartnerUseCaseInput
                 {
                     
                 });
 
-                return new ObjectResult(Data);
+                return new ObjectResult(data);
             }
             catch (BaseException e)
             {
-                return new BadRequestObjectResult(e.Data);
+                return new BadRequestObjectResult(e.data);
             }
             catch (Exception e)
             {
@@ -84,9 +84,9 @@ namespace Samauma.Controllers.Partner
 
             try
             {
-                var Data = await _listPartnersUseCase.Run(_mapper.Map<ListPartnersUseCaseInput>(input));
+                var data = await _listPartnersUseCase.Run(_mapper.Map<ListPartnersUseCaseInput>(input));
 
-                return new ObjectResult(Data);
+                return new ObjectResult(data);
             }
             catch (BaseException e)
             {
@@ -104,16 +104,16 @@ namespace Samauma.Controllers.Partner
             _logger.LogInformation("Get partner by identificator has called => {Id}", Id);
             try
             {
-                var Data = await _getPartnerByIdUseCase.Run(new GetPartnerByIdUseCaseInput
+                var data = await _getPartnerByIdUseCase.Run(new GetPartnerByIdUseCaseInput
                 {
                     
                 });
 
-                return new ObjectResult(Data);
+                return new ObjectResult(data);
             }
             catch (BaseException e)
             {
-                return new BadRequestObjectResult(e.Data);
+                return new BadRequestObjectResult(e.data);
             }
             catch (Exception e)
             {
@@ -121,28 +121,28 @@ namespace Samauma.Controllers.Partner
             }
         }*/
 
-                /*[HttpDelete("{Id}")]
-                public async Task<ObjectResult> DeletePartner(string Id)
+        /*[HttpDelete("{Id}")]
+        public async Task<ObjectResult> DeletePartner(string Id)
+        {
+            _logger.LogInformation("Delete partner has called => {Id}", Id);
+
+            try
+            {
+                var data = await _deletePartnerUseCase.Run(new DeletePartnerUseCaseInput
                 {
-                    _logger.LogInformation("Delete partner has called => {Id}", Id);
+                    Id = Id
+                });
 
-                    try
-                    {
-                        var Data = await _deletePartnerUseCase.Run(new DeletePartnerUseCaseInput
-                        {
-                            Id = Id
-                        });
-
-                        return new ObjectResult(Data);
-                    }
-                    catch (BaseException e)
-                    {
-                        return new BadRequestObjectResult(e.Data);
-                    }
-                    catch (Exception e)
-                    {
-                        return StatusCode(StatusCodes.Status500InternalServerError, e.Message);
-                    }
-                }*/
+                return new ObjectResult(data);
             }
+            catch (BaseException e)
+            {
+                return new BadRequestObjectResult(e.data);
+            }
+            catch (Exception e)
+            {
+                return StatusCode(StatusCodes.Status500InternalServerError, e.Message);
+            }
+        }*/
+    }
 }

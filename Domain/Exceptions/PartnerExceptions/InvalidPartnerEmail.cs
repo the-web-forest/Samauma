@@ -2,6 +2,6 @@
 {
     public class InvalidPartnerEmailException : BaseException
     {
-        public InvalidPartnerEmailException() : base("005", "Invalid Partner Email") { }
+        public InvalidPartnerEmailException() : base("001", "Invalid Partner Email") { }
     }
 }
