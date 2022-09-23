@@ -50,7 +50,7 @@ public class StorageService: IStorageService
         return fileUri;
     }
 
-    private BlobUploadOptions GetBlobUploadOptions()
+    private static BlobUploadOptions GetBlobUploadOptions()
     {
         return new BlobUploadOptions
         {
@@ -61,7 +61,7 @@ public class StorageService: IStorageService
         };
     }
 
-    private void UploadImageToBlob(BlobClient BlobClient, byte[] ImageBytes)
+    private static void UploadImageToBlob(BlobClient BlobClient, byte[] ImageBytes)
     {
         using var Stream = new MemoryStream(ImageBytes);
             BlobClient.Upload(Stream, GetBlobUploadOptions());
