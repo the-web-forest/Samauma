@@ -2,5 +2,6 @@
 {
     public class UpdatePartnerUseCaseOutput
     {
+        public bool Updated { get; set; } = true;
     }
 }

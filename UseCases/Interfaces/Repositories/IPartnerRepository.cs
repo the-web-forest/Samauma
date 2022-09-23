@@ -9,5 +9,6 @@ namespace Samauma.UseCases.Interfaces
         Task<Paging<Partner>> GetPartnersByFilter(ListPartnersUseCaseInput filter);
         Task<bool> VerifyPartnerEmailExistence(string email);
         Task<int> GetNextCode();
+        Task<Partner?> GetPartnerById(string id);
     }
 }

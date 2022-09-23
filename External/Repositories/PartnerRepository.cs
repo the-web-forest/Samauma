@@ -55,6 +55,9 @@ namespace Samauma.External.Repositories
                 });
         }
 
+        public async Task<Partner?> GetPartnerById(string id)
+            => await _collection.Find(partner => partner.Id == id).FirstOrDefaultAsync();
+
         public async Task<bool> VerifyPartnerEmailExistence(string email)
             => await _collection.CountDocumentsAsync(x => x.Email.Equals(email)) > 0;
 

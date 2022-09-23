@@ -6,6 +6,7 @@ using Samauma.Domain.Errors;
 using Samauma.UseCases;
 using Samauma.UseCases.PartnersUseCases.CreatePartners;
 using Samauma.UseCases.PartnersUseCases.ListPartners;
+using Samauma.UseCases.PartnersUseCases.UpdatePartner;
 
 namespace Samauma.Controllers.Partner
 {
@@ -18,17 +19,20 @@ namespace Samauma.Controllers.Partner
         private readonly ILogger<PartnersController> _logger;
         private readonly IUseCase<ListPartnersUseCaseInput, ListPartnersUseCaseOutput> _listPartnersUseCase;
         private readonly IUseCase<CreatePartnerUseCaseInput, CreatePartnerUseCaseOutput> _createPartnerUseCase;
+        private readonly IUseCase<UpdatePartnerUseCaseInput, UpdatePartnerUseCaseOutput> _updatePartnerUseCase;
 
         public PartnersController(
             IMapper mapper,
             ILogger<PartnersController> logger,
             IUseCase<ListPartnersUseCaseInput, ListPartnersUseCaseOutput> listPartnersUseCase,
-            IUseCase<CreatePartnerUseCaseInput, CreatePartnerUseCaseOutput> createPartnerUseCase
+            IUseCase<CreatePartnerUseCaseInput, CreatePartnerUseCaseOutput> createPartnerUseCase,
+            IUseCase<UpdatePartnerUseCaseInput, UpdatePartnerUseCaseOutput> updatePartnerUseCase
         )
         {
             _mapper = mapper;
             _listPartnersUseCase = listPartnersUseCase;
             _createPartnerUseCase = createPartnerUseCase;
+            _updatePartnerUseCase = updatePartnerUseCase;
             _logger = logger;
         }
 
@@ -53,29 +57,26 @@ namespace Samauma.Controllers.Partner
             }
         }
 
-        /*[HttpPut]
+        [HttpPut]
         public async Task<ObjectResult> UpdatePartner([FromBody] UpdatePartnerInput input)
         {
             _logger.LogInformation("Update partner has called => {Id}", input.Id);
             
             try
             {
-                var data = await _updatePartnerUseCase.Run(new UpdatePartnerUseCaseInput
-                {
-                    
-                });
+                var data = await _updatePartnerUseCase.Run(_mapper.Map<UpdatePartnerUseCaseInput>(input));
 
                 return new ObjectResult(data);
             }
             catch (BaseException e)
             {
-                return new BadRequestObjectResult(e.data);
+                return new BadRequestObjectResult(e.Data);
             }
             catch (Exception e)
             {
                 return StatusCode(StatusCodes.Status500InternalServerError, e.Message);
             }
-        }*/
+        }
 
         [HttpGet("List")]
         public async Task<ObjectResult> GetPartners([FromQuery] PartnersSearchInput input)
