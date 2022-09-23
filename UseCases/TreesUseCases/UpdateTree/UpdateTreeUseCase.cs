@@ -24,9 +24,7 @@ namespace Samauma.UseCases
             var TreeToUpdate = await _treeRepository.GetTreeById(Input.Id);
 
             if(TreeToUpdate is null)
-            {
                 throw new InvalidTreeIdException();
-            }
 
             await ValidateTreeUpdate(TreeToUpdate, Input);
             await UpdateTree(TreeToUpdate, Input);
@@ -36,14 +34,11 @@ namespace Samauma.UseCases
 
         private async Task UpdateTree(Tree Tree, UpdateTreeUseCaseInput Input)
         {
-            var HasNewImage = Input.ImageBase64 is not null && Input.ImageBase64 != "";
+            var HasNewImage = !string.IsNullOrEmpty(Input.ImageBase64);
             var ImageUri = Tree.Image;
 
             if (HasNewImage)
-            {
-                ImageUri = UploadNewTreeImage(Input.ImageBase64);
-            }
-
+                ImageUri = UploadNewTreeImage(Input.ImageBase64, ImageUri);
 
             Tree.Name = Input.Name;
             Tree.Description = Input.Description;
@@ -53,22 +48,19 @@ namespace Samauma.UseCases
             await _treeRepository.Update(Tree);
         }
 
-        private string UploadNewTreeImage(string Base64Image)
+        private string UploadNewTreeImage(string Base64Image, string imageUri)
         {
-            return _storageService.UploadTreeImageInBase64(Base64Image);
+            return string.IsNullOrEmpty(imageUri)
+                ? _storageService.UploadTreeImageInBase64(Base64Image)
+                : _storageService.UploadTreeImageInBase64(Base64Image, imageUri);
         }
 
         private async Task<bool> ValidateTreeUpdate(Tree Tree, UpdateTreeUseCaseInput NewTree)
         {
             var TreeWithSameName = await _treeRepository.GetTreeByName(NewTree.Name);
 
-            if(TreeWithSameName is not null &&
-                TreeWithSameName.Id != Tree.Id &&
-                TreeWithSameName.Deleted == false
-            )
-            {
+            if(!TreeWithSameName?.Id.Equals(Tree.Id) == true)
                 throw new InvalidTreeNameException();
-            }
 
             return true;    
         }
