@@ -1,49 +1,70 @@
-﻿using System;
-using System.Text.RegularExpressions;
-using Azure.Storage.Blobs;
+﻿using Azure.Storage.Blobs;
 using Azure.Storage.Blobs.Models;
 using Samauma.UseCases.Interfaces.Services;
+using System.Text.RegularExpressions;
 
-namespace Samauma.External.Services
+namespace Samauma.External.Services;
+
+public class StorageService: IStorageService
 {
-    public class StorageService: IStorageService
+    private IConfiguration _configuration { get; }
+    private static string DefaultExtension => "png";
+
+    public StorageService(IConfiguration configuration)
     {
-        private readonly IConfiguration _configuration;
-        
-        public StorageService(IConfiguration configuration)
-        {
-            _configuration = configuration;
-        }
+        _configuration = configuration;
+    }
 
-        public string UploadTreeImageInBase64(string Base64Image)
-        {
-            return UploadImageInBase64(Base64Image, _configuration["Storage:TreeContainerName"]);
-        }
+    public string UploadTreeImageInBase64(string Base64Image)
+    {
+        return UploadImageInBase64(Base64Image, _configuration["Storage:TreeContainerName"]);
+    }
 
-        private string UploadImageInBase64(string Base64Image, string ContainerName)
-        {
-            var DefaultExtension = "png";
-            var FileName = Guid.NewGuid().ToString() + "." + DefaultExtension;
-            var FileUri = _configuration["Storage:TreeCdnUrl"] + "/" + ContainerName + "/" + FileName;
-            var BlobClient = new BlobClient(_configuration["Storage:ConnectionString"], ContainerName, FileName);
-            var Data = new Regex(@"^data:image\/[a-z]+;base64,").Replace(Base64Image, "");
-            byte[] ImageBytes = Convert.FromBase64String(Data);
+    public string UploadTreeImageInBase64(string Base64Image, string fileUri)
+    {
+        return UploadImageInBase64(Base64Image, _configuration["Storage:TreeContainerName"], fileUri);
+    }
 
-            var Options = new BlobUploadOptions
+    private string UploadImageInBase64(string Base64Image, string ContainerName)
+    {
+        string fileName = Guid.NewGuid().ToString() + "." + DefaultExtension;
+        var FileUri = string.Concat(_configuration["Storage:TreeCdnUrl"], "/", ContainerName, "/", fileName);
+        var BlobClient = new BlobClient(_configuration["Storage:ConnectionString"], ContainerName, fileName);
+        var Data = new Regex(@"^data:image\/[a-z]+;base64,").Replace(Base64Image, "");
+        byte[] ImageBytes = Convert.FromBase64String(Data);
+
+        UploadImageToBlob(BlobClient, ImageBytes);
+
+        return FileUri;
+    }
+
+    private string UploadImageInBase64(string Base64Image, string ContainerName, string fileUri)
+    {
+        string fileName = fileUri.Split("/").Last();
+        var BlobClient = new BlobClient(_configuration["Storage:ConnectionString"], ContainerName, fileName);
+        var Data = new Regex(@"^data:image\/[a-z]+;base64,").Replace(Base64Image, ""); 
+        byte[] ImageBytes = Convert.FromBase64String(Data);
+
+        UploadImageToBlob(BlobClient, ImageBytes);
+
+        return fileUri;
+    }
+
+    private static BlobUploadOptions GetBlobUploadOptions()
+    {
+        return new BlobUploadOptions
+        {
+            HttpHeaders = new BlobHttpHeaders()
             {
-                HttpHeaders = new BlobHttpHeaders()
-                {
-                    ContentType = "image/" + DefaultExtension
-                }
-            };
-
-            using (var Stream = new MemoryStream(ImageBytes))
-            {
-                BlobClient.Upload(Stream, Options);
+                ContentType = "image/" + DefaultExtension
             }
+        };
+    }
 
-            return FileUri;
-        }
+    private static void UploadImageToBlob(BlobClient BlobClient, byte[] ImageBytes)
+    {
+        using var Stream = new MemoryStream(ImageBytes);
+            BlobClient.Upload(Stream, GetBlobUploadOptions());
     }
 }
 
