@@ -21,8 +21,7 @@ namespace Samauma.Configuration.AutoMapper
             CreateMap<CreatePartnerUseCaseInput, Partner>()
                 .BeforeMap((s, d) => d.Deleted = false);
             CreateMap<UpdatePartnerInput, UpdatePartnerUseCaseInput>();
-            CreateMap<UpdatePartnerUseCaseInput, Partner>();
-            CreateMap<Partner, Partner>()
+            CreateMap<UpdatePartnerUseCaseInput, Partner>()
                 .ForMember(x => x.Id, y => y.Ignore())
                 .ForMember(x => x.Code, y => y.Ignore())
                 .ForAllMembers(x => x.Condition((src, dest, srcMember) => srcMember is not null));

@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using Samauma.Domain.Models;
+using Samauma.UseCases.PartnersUseCases.GetPartnerById;
 using Samauma.UseCases.PartnersUseCases.ListPartners;
 using Samauma.UseCases.PartnersUseCases.ListPartners.DTOs;
 
@@ -19,6 +20,8 @@ namespace Samauma.Configuration.AutoMapper
             CreateMap<Paging<Partner>, ListPartnersUseCaseOutput>()
                 .ForMember(x => x.Partners, y => y.MapFrom(z => z.Data))
                 .ForMember(x => x.TotalCount, y => y.MapFrom(z => z.TotalCount));
+
+            CreateMap<Partner, GetPartnerByIdUseCaseOutput>();
         }
     }
 }
