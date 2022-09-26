@@ -6,14 +6,14 @@ using Samauma.UseCases.PartnersUseCases.ListPartners.DTOs;
 
 namespace Samauma.Configuration.AutoMapper
 {
-    public class ModelToDTOMappingProfile : Profile
+    public class ModelToDtoMappingProfile : Profile
     {
         public override string ProfileName
         {
             get { return GetType().Name; }
         }
 
-        public ModelToDTOMappingProfile()
+        public ModelToDtoMappingProfile()
         {
             CreateMap<Partner, LightPartner>();
 

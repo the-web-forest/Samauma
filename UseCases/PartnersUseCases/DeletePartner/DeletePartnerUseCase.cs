@@ -22,7 +22,7 @@ namespace Samauma.UseCases.PartnersUseCases.DeletePartner
                 throw new InvalidPartnerIdException();
 
             if (partner.Deleted)
-                throw new PartnerAlreadyDeletedEsception();
+                throw new PartnerAlreadyDeletedException();
 
             partner.Deleted = true;
 

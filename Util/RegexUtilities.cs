@@ -4,7 +4,7 @@ using System.Text.RegularExpressions;
 
 namespace Samauma.Util
 {
-    public class RegexUtilities
+    public static class RegexUtilities
     {
         public static bool IsValidEmailAdress(string emailAdress)
         {

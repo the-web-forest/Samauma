@@ -1,7 +1,7 @@
 ﻿namespace Samauma.Domain.Errors
 {
-    public class PartnerAlreadyDeletedEsception : BaseException
+    public class PartnerAlreadyDeletedException : BaseException
     {
-        public PartnerAlreadyDeletedEsception() : base("004", "Partner Already Deleted") { }
+        public PartnerAlreadyDeletedException() : base("004", "Partner Already Deleted") { }
     }
 }

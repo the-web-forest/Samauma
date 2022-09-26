@@ -6,7 +6,7 @@ namespace Samauma.UseCases.PartnersUseCases.ListPartners
     public class ListPartnersUseCase : IUseCase<ListPartnersUseCaseInput, ListPartnersUseCaseOutput>
     {
         private readonly IMapper _mapper;
-        IPartnerRepository _partnerRepository;
+        private readonly IPartnerRepository _partnerRepository;
 
         public ListPartnersUseCase(
             IMapper mapper,

@@ -7,14 +7,14 @@ using Samauma.UseCases.PartnersUseCases.UpdatePartner;
 
 namespace Samauma.Configuration.AutoMapper
 {
-    public class DTOToModelMappingProfile : Profile
+    public class DtoToModelMappingProfile : Profile
     {
         public override string ProfileName
         {
             get { return GetType().Name; }
         }
 
-        public DTOToModelMappingProfile()
+        public DtoToModelMappingProfile()
         {
             CreateMap<PartnersSearchInput, ListPartnersUseCaseInput>();
             CreateMap<CreatePartnerInput, CreatePartnerUseCaseInput>();
