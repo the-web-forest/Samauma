@@ -1,7 +1,5 @@
 ﻿using AutoMapper;
 using Samauma.Domain.Errors;
-using Samauma.Domain.Models;
-using Samauma.Helpers;
 using Samauma.UseCases.Interfaces;
 using Samauma.Util;
 
