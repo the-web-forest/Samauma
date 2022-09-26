@@ -8,6 +8,5 @@
         public string? Email { get; set; }
         public string? Tree { get; set; }
         public string? Url { get; set; }
-        public bool? Deleted { get; set; }
     }
 }

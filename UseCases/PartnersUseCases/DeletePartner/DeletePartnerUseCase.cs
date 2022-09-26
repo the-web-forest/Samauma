@@ -1,10 +1,34 @@
-﻿namespace Samauma.UseCases.PartnersUseCases.DeletePartner
+﻿using Samauma.Domain.Errors;
+using Samauma.Domain.Models;
+using Samauma.Helpers;
+using Samauma.UseCases.Interfaces;
+
+namespace Samauma.UseCases.PartnersUseCases.DeletePartner
 {
     public class DeletePartnerUseCase : IUseCase<DeletePartnerUseCaseInput, DeletePartnerUseCaseOutput>
     {
-        public Task<DeletePartnerUseCaseOutput> Run(DeletePartnerUseCaseInput Input)
+        private readonly IPartnerRepository _partnerRepository;
+
+        public DeletePartnerUseCase(IPartnerRepository partnerRepository)
         {
-            throw new NotImplementedException();
+            _partnerRepository = partnerRepository;
+        }
+
+        public async Task<DeletePartnerUseCaseOutput> Run(DeletePartnerUseCaseInput Input)
+        {
+            var partner = await _partnerRepository.GetPartnerById(Input.Id);
+
+            if (partner is null)
+                throw new InvalidPartnerIdException();
+
+            if (partner.Deleted)
+                throw new PartnerAlreadyDeletedEsception();
+
+            partner.Deleted = true;
+
+            await _partnerRepository.Update(partner);
+
+            return new DeletePartnerUseCaseOutput();
         }
     }
 }

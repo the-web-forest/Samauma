@@ -2,5 +2,6 @@
 {
     public class GetPartnerByIdUseCaseInput
     {
+        public string Id { get; set; }
     }
 }

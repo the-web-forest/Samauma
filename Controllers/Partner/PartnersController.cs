@@ -5,6 +5,8 @@ using Samauma.Controllers.Partner.DTOs;
 using Samauma.Domain.Errors;
 using Samauma.UseCases;
 using Samauma.UseCases.PartnersUseCases.CreatePartners;
+using Samauma.UseCases.PartnersUseCases.DeletePartner;
+using Samauma.UseCases.PartnersUseCases.GetPartnerById;
 using Samauma.UseCases.PartnersUseCases.ListPartners;
 using Samauma.UseCases.PartnersUseCases.UpdatePartner;
 
@@ -20,19 +22,25 @@ namespace Samauma.Controllers.Partner
         private readonly IUseCase<ListPartnersUseCaseInput, ListPartnersUseCaseOutput> _listPartnersUseCase;
         private readonly IUseCase<CreatePartnerUseCaseInput, CreatePartnerUseCaseOutput> _createPartnerUseCase;
         private readonly IUseCase<UpdatePartnerUseCaseInput, UpdatePartnerUseCaseOutput> _updatePartnerUseCase;
+        private readonly IUseCase<GetPartnerByIdUseCaseInput, GetPartnerByIdUseCaseOutput> _getPartnerByIdUseCase;
+        private readonly IUseCase<DeletePartnerUseCaseInput, DeletePartnerUseCaseOutput> _deletePartnerUseCase;
 
         public PartnersController(
             IMapper mapper,
             ILogger<PartnersController> logger,
             IUseCase<ListPartnersUseCaseInput, ListPartnersUseCaseOutput> listPartnersUseCase,
             IUseCase<CreatePartnerUseCaseInput, CreatePartnerUseCaseOutput> createPartnerUseCase,
-            IUseCase<UpdatePartnerUseCaseInput, UpdatePartnerUseCaseOutput> updatePartnerUseCase
+            IUseCase<UpdatePartnerUseCaseInput, UpdatePartnerUseCaseOutput> updatePartnerUseCase,
+            IUseCase<GetPartnerByIdUseCaseInput, GetPartnerByIdUseCaseOutput> getPartnerByIdUseCase,
+            IUseCase<DeletePartnerUseCaseInput, DeletePartnerUseCaseOutput> deletePartnerUseCase
         )
         {
             _mapper = mapper;
             _listPartnersUseCase = listPartnersUseCase;
             _createPartnerUseCase = createPartnerUseCase;
             _updatePartnerUseCase = updatePartnerUseCase;
+            _getPartnerByIdUseCase = getPartnerByIdUseCase;
+            _deletePartnerUseCase = deletePartnerUseCase;
             _logger = logger;
         }
 
@@ -99,7 +107,7 @@ namespace Samauma.Controllers.Partner
             }
         }
 
-        /*[HttpGet("{Id}")]
+        [HttpGet("{Id}")]
         public async Task<ObjectResult> GetPartnerById(string Id)
         {
             _logger.LogInformation("Get partner by identificator has called => {Id}", Id);
@@ -107,22 +115,22 @@ namespace Samauma.Controllers.Partner
             {
                 var data = await _getPartnerByIdUseCase.Run(new GetPartnerByIdUseCaseInput
                 {
-                    
+                    Id = Id
                 });
 
                 return new ObjectResult(data);
             }
             catch (BaseException e)
             {
-                return new BadRequestObjectResult(e.data);
+                return new BadRequestObjectResult(e.Data);
             }
             catch (Exception e)
             {
                 return StatusCode(StatusCodes.Status500InternalServerError, e.Message);
             }
-        }*/
+        }
 
-        /*[HttpDelete("{Id}")]
+        [HttpDelete("{Id}")]
         public async Task<ObjectResult> DeletePartner(string Id)
         {
             _logger.LogInformation("Delete partner has called => {Id}", Id);
@@ -138,12 +146,12 @@ namespace Samauma.Controllers.Partner
             }
             catch (BaseException e)
             {
-                return new BadRequestObjectResult(e.data);
+                return new BadRequestObjectResult(e.Data);
             }
             catch (Exception e)
             {
                 return StatusCode(StatusCodes.Status500InternalServerError, e.Message);
             }
-        }*/
+        }
     }
 }

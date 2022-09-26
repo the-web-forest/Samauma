@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using Samauma.Domain.Errors;
 using Samauma.Domain.Models;
+using Samauma.Helpers;
 using Samauma.UseCases.Interfaces;
 using Samauma.Util;
 
@@ -24,8 +25,8 @@ namespace Samauma.UseCases.PartnersUseCases.UpdatePartner
 
         public async Task<UpdatePartnerUseCaseOutput> Run(UpdatePartnerUseCaseInput input)
         {
-            var currentPartnerRegister = await _partnerRepository.GetPartnerById(input.Id);
-            if (currentPartnerRegister is null)
+            var partner = await _partnerRepository.GetPartnerById(input.Id);
+            if (partner is null)
                 throw new InvalidPartnerIdException();
 
             if (!string.IsNullOrEmpty(input.Email) &&
@@ -52,9 +53,8 @@ namespace Samauma.UseCases.PartnersUseCases.UpdatePartner
                 !await VerifyTreeExists(input.Tree))
                 throw new InvalidTreeIdException();
 
-            var partner = _mapper.Map<Partner>(input);
-            currentPartnerRegister = _mapper.Map<Partner>(partner);
-            await _partnerRepository.Update(currentPartnerRegister);
+            _mapper.Map(input, partner);
+            await _partnerRepository.Update(partner);
             return new UpdatePartnerUseCaseOutput();
         }
 

@@ -36,7 +36,7 @@ namespace Samauma.External.Repositories
 
             long? total = null;
             if (filter.RequiredTotal == true)
-                total = query.Count().FirstOrDefault().Count;
+                total = query.Count()?.FirstOrDefault()?.Count;
 
             if (filter.Skip is not null)
                 query = query
