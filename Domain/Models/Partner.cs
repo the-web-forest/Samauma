@@ -2,6 +2,7 @@
 
 namespace Samauma.Domain.Models
 {
+    [BsonIgnoreExtraElements]
     public class Partner : Model
     {
         [BsonElement("name")]
