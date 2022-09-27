@@ -2,6 +2,6 @@
 {
     public class EmailAlreadyRegisteredException : BaseException
     {
-        public EmailAlreadyRegisteredException() : base("004", "Partner Email Already Registered") { }
+        public EmailAlreadyRegisteredException() : base("012", "Partner Email Already Registered") { }
     }
 }

@@ -2,6 +2,6 @@
 {
     public class InvalidPartnerUrlException : BaseException
     {
-        public InvalidPartnerUrlException() : base("005", "Invalid Partner Url") { }
+        public InvalidPartnerUrlException() : base("008", "Invalid Partner Url") { }
     }
 }

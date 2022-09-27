@@ -2,6 +2,6 @@
 {
     public class InvalidPartnerIdException : BaseException
     {
-        public InvalidPartnerIdException() : base("005", "Invalid Parter Id") { }
+        public InvalidPartnerIdException() : base("010", "Invalid Parter Id") { }
     }
 }

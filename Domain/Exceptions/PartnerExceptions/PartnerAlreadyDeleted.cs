@@ -2,6 +2,6 @@
 {
     public class PartnerAlreadyDeletedException : BaseException
     {
-        public PartnerAlreadyDeletedException() : base("004", "Partner Already Deleted") { }
+        public PartnerAlreadyDeletedException() : base("006", "Partner Already Deleted") { }
     }
 }

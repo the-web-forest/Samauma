@@ -2,6 +2,6 @@
 {
     public class InvalidTreeObjectIdException : BaseException
     {
-        public InvalidTreeObjectIdException() : base("005", "Invalid Tree Object Id") { }
+        public InvalidTreeObjectIdException() : base("007", "Invalid Tree Object Id") { }
     }
 }

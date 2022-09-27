@@ -2,6 +2,6 @@
 {
     public class InvalidPartnerPasswordException : BaseException
     {
-        public InvalidPartnerPasswordException() : base("001", "Invalid Partner Password") { }
+        public InvalidPartnerPasswordException() : base("009", "Invalid Partner Password") { }
     }
 }
