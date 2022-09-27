@@ -1,6 +1,5 @@
 ﻿namespace Samauma.Domain.Errors
 {
-    [Serializable]
     public class BaseException: Exception
     {
         public BaseException(string Code, string Message)
