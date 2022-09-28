@@ -21,12 +21,11 @@ public class TreeRepository : BaseRepository<Tree>, ITreeRepository
         return TotalTask;
     }
 
-    public async Task<Tree> GetTreeById(string TreeId)
-    {
-        return await _collection
-            .Find(x => x.Id == TreeId)
-            .FirstOrDefaultAsync();
-    }
+        public async Task<bool> VerifyTreeExistenceById(string TreeId)
+            => await _collection.CountDocumentsAsync(x => x.Id.Equals(TreeId)) > 0;
+
+        public async Task<Tree> GetTreeById(string TreeId)
+            => await _collection.Find(x => x.Id == TreeId).FirstOrDefaultAsync();
 
     public async Task<Tree> GetTreeByName(string Name)
     {
