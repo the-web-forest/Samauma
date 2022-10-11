@@ -40,7 +40,7 @@ namespace Samauma.UseCases.PartnersUseCases.UpdatePartner
                 throw new InvalidPartnerPasswordException();
 
             if (!string.IsNullOrEmpty(input.Email) && 
-                await VerifyEmailExists(input.Email))
+                await VerifyEmailExists(input.Email, input.Id))
                 throw new EmailAlreadyRegisteredException();
 
             if (!string.IsNullOrEmpty(input.Tree) && 
@@ -56,8 +56,22 @@ namespace Samauma.UseCases.PartnersUseCases.UpdatePartner
             return new UpdatePartnerUseCaseOutput();
         }
 
-        private async Task<bool> VerifyEmailExists(string email)
-            => await _partnerRepository.VerifyPartnerEmailExistence(email);
+        private async Task<bool> VerifyEmailExists(string email, string id)
+        {
+            var partner = await _partnerRepository.GetPartnerByEmail(email);
+
+            if (partner is null)
+            {
+                return false;
+            }
+
+            if (partner.Id == id)
+            {
+                return false;
+            }
+
+            return true;
+        }
 
         private async Task<bool> VerifyTreeExists(string objectId)
             => await _treeRepository.VerifyTreeExistenceById(objectId);

@@ -10,5 +10,6 @@ namespace Samauma.UseCases.Interfaces
         Task<bool> VerifyPartnerEmailExistence(string email);
         Task<int> GetNextCode();
         Task<Partner?> GetPartnerById(string id);
+        Task<Partner?> GetPartnerByEmail(string email);
     }
 }

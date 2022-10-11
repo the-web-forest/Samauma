@@ -31,6 +31,8 @@ namespace Samauma.External.Repositories
                 query = query
                     .Match(partner => partner.Code == filter.Code);
 
+            query = query.Match(partner => !partner.Deleted);
+
             query = query
                 .SortBy(partner => partner.CreatedAt);
 
@@ -67,5 +69,9 @@ namespace Samauma.External.Repositories
                 .SortByDescending(partner => partner.Code)
                 .FirstAsync()
                 .ContinueWith(partner => partner.Result.Code + 1);
+
+        public async Task<Partner?> GetPartnerByEmail(string email)
+            => await _collection.Find(partner => partner.Email == email).FirstOrDefaultAsync();
+
     }
 }
