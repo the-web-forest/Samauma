@@ -31,7 +31,7 @@ namespace Samauma.External.Repositories
                 query = query
                     .Match(partner => partner.Code == filter.Code);
 
-            query = query.Match(partner => partner.Deleted == false);
+            query = query.Match(partner => !partner.Deleted);
 
             query = query
                 .SortBy(partner => partner.CreatedAt);
