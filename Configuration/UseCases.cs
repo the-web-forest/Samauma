@@ -6,6 +6,11 @@ using Samauma.UseCases.CreateTree;
 using Samauma.UseCases.GetTreeById;
 using Samauma.UseCases.UserDetail;
 using Samauma.UseCases.DeleteTree;
+using Samauma.UseCases.PartnersUseCases.ListPartners;
+using Samauma.UseCases.PartnersUseCases.CreatePartners;
+using Samauma.UseCases.PartnersUseCases.DeletePartner;
+using Samauma.UseCases.PartnersUseCases.GetPartnerById;
+using Samauma.UseCases.PartnersUseCases.UpdatePartner;
 
 namespace Samauma.Configuration
 {
@@ -27,6 +32,13 @@ namespace Samauma.Configuration
             builder.Services.AddScoped<IUseCase<DeleteTreeUseCaseInput, DeleteTreeUseCaseOutput>, DeleteTreeUseCase>();
             #endregion
 
+            #region Partner
+            builder.Services.AddScoped<IUseCase<ListPartnersUseCaseInput, ListPartnersUseCaseOutput>, ListPartnersUseCase>();
+            builder.Services.AddScoped<IUseCase<CreatePartnerUseCaseInput, CreatePartnerUseCaseOutput>, CreatePartnerUseCase>();
+            builder.Services.AddScoped<IUseCase<DeletePartnerUseCaseInput, DeletePartnerUseCaseOutput>, DeletePartnerUseCase>();
+            builder.Services.AddScoped<IUseCase<GetPartnerByIdUseCaseInput, GetPartnerByIdUseCaseOutput>, GetPartnerByIdUseCase>();
+            builder.Services.AddScoped<IUseCase<UpdatePartnerUseCaseInput, UpdatePartnerUseCaseOutput>, UpdatePartnerUseCase>();
+            #endregion
         }
     }
 }

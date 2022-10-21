@@ -11,6 +11,7 @@ namespace Samauma.UseCases.Interfaces
         Task<List<Tree>> ListActiveTreesPerPage(int Page, int ItensPerPage);
         Task<long> CountTrees();
         Task<long> CountActiveTrees();
+        Task<bool> VerifyTreeExistenceById(string TreeId);
         Task<Tree> GetActiveTreeByName(string Name);
     }
 }
