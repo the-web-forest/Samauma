@@ -4,6 +4,7 @@ using Samauma.Domain.Models;
 
 namespace Samauma.Domain.Models
 {
+	[BsonIgnoreExtraElements]
 	public class User: Model
 	{
 		[BsonElement("name")]
@@ -24,11 +25,11 @@ namespace Samauma.Domain.Models
 		[BsonElement("emailVerified")]
 		public bool EmailVerified { get; set; }
 
-        [BsonElement("origin")]
-        public string Origin { get; set; }
+		[BsonElement("origin")]
+		public string Origin { get; set; }
 
-        [BsonElement("photo")]
-        public string Photo { get; set; }
-    }
+		[BsonElement("photo")]
+		public string Photo { get; set; }
+    	}
 }
 
